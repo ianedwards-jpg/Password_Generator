@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Password Generator</h1>
+      </header>
+      <div class="card">
+        <div class="card-header">
+          <h2>Select Password Parameters</h2>
+        </div>
+        <div class="card-body">
+          <div>
+            <!-- Text Input For Password Length -->
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-default">Characters:</span>
+              <input id="input_password_length" type="number" min="6" max="128" value="6" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+            <!-- Checkbox Inputs For Character Parameters -->
+            <div class="input-group">
+              <div class="input-group-text">
+                <label for="include_lowercase">Include Lowercase Letters?</label>
+                <input id="include_lowercase" class="form-check-input mt-0" type="checkbox" value="true" aria-label="Include Lowercase Letters?">
+              </div>
+            </div>
+            <div class="input-group">
+              <div class="input-group-text">
+                <label for="include_uppercase">Include Uppercase Letters?</label>
+                <input id="include_uppercase" class="form-check-input mt-0" type="checkbox" value="true" aria-label="Include Uppercase Letters?">
+              </div>
+            </div>
+            <div class="input-group">
+              <div class="input-group-text">
+                <label for="include_special_chars">Include Special Characters?</label>
+                <input id="include_special_chars" class="form-check-input mt-0" type="checkbox" value="true" aria-label="Include Special Characters?">
+              </div>
+            </div>
+            <div class="input-group">
+              <div class="input-group-text">
+                <label for="include_numbers">Include Numbers?</label>
+                <input id="include_numbers" class="form-check-input mt-0" type="checkbox" value="true" aria-label="Include Numbers?">
+              </div>
+            </div>
+          </div>
+          
+          <div class="btn_container">
+            <button id="generate" class="btn">Generate Password</button>
+          </div>
+        </div>
+        <div class="card-footer">
+          <textarea
+          readonly
+          id="password"
+          placeholder="Your Secure Password"
+          aria-label="Generated Password"
+        ></textarea>
+
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
