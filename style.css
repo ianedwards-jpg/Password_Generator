@@ -30,6 +30,11 @@ header {
   color: hsl(206, 17%, 28%);
 }
 
+.banner {
+  margin-top: 35px;
+  margin-bottom: 16px;
+}
+
 .card {
   background-color: hsl(0, 0%, 100%);
   border-radius: 5px;
@@ -50,9 +55,15 @@ header {
   height: 2px;
 }
 
+.card-header-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .card-body {
   min-height: 100px;
   display: block;
+  padding-top: 10px;
 }
 
 .card-footer {

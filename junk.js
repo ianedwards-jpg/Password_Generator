@@ -72,3 +72,5 @@ const validateSpecialChars = () => {
         
 //     }
 // }
+
+// passwordText.value = password;  
