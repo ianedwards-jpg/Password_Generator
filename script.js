@@ -65,75 +65,63 @@ const speCase = speCaseInput.checked
     
 // Password validation functions based on user inputs
 
-    const validateUpper = () => {
-        if (uppCase){
-            let regex = new RegExp("(?=.*?[A-Z])") 
-            if(regex.test(password)){
-                return true
-            }
-            else {
-               // console.log("failUC")
-                return false
-            }
-        }
-    }
-    const validateLower = () => {
+    let regMap = [
+        {exp: uppCase, name: "uppCase", value: "(?=.*?[A-Z])" },
+        {exp: lowCase, name: "lowCase", value: "(?=.*?[a-z])" } , 
+        {exp: numCase, name: "numCase", value: "(?=.*?[0-9])" }  ,
+        {exp: speCase, name: "speCase", value: "(?=.*?[#?!@$%^&*-])" }
+    ]
 
-        if (lowCase) {
-            let regex = new RegExp("(?=.*?[a-z])") 
-            if(regex.test(password)){
-                return true
-            }
-            else {
-                return false
-            }
+    const regValidator = () => {
+        let results = []
+        let checker = results => results.every(v => v === true);
+
+
+        regMap.forEach(element =>  {
+            if(element.exp === true) {
+
+                console.log("element", element.name)
+
+                let regex = new RegExp(element.value) 
+                
+                // console.log("regex", regex)
+                    if(regex.test(password)){
+                        console.log("true", element.name)
+                        results.push(true)
+                    }
+                    else {
+                        console.log("false", element.name)
+                        results.push(false)
+                        // console.log(false)
+                    }
+            } 
+        });
+
+        console.log("results", results)
+
+        if (checker(results) === true) {
+            console.log("checkertrue")
+            return true
         }
-    }
-    const validateNumbers = () => {
-        if (numCase) {
-            let regex = new RegExp("(?=.*?[0-9])") 
-            if(regex.test(password)){
-                return true
-            }
-            else {
-                return false
-            }
-        }
-    }
-    const validateSpecialChars = () => {
-        if (speCase) {
-            let regex = new RegExp("(?=.*?[#?!@$%^&*-])") 
-            if(regex.test(password)){
-                return true
-            }
-            else {
-                return false
-            }
+        else {
+            console.log("checkerfalse")
+            return false
         }
     }
 
 // Set up logic to accept only passwords users specify
-    const validatePassword = () => {
-        if((validateUpper() === false)) {
-            return false
-        }
-        else if ( (validateLower() === false)) { 
-            return false
-        }
-        else if ( (validateNumbers() === false))  {
-            return false
-        }
-        else if ( (validateSpecialChars() === false))  { 
-            return false
-        }
-        else {
-            return true
-        }
-    }
+    // const validatePassword = () => {
+    //     if((regValidator() === false)) {
+    //         return false
+    //     }
+    //     else {
+    //         return true
+    //     }
+    // }
     
 
     const recursor = () => {
-        if(validatePassword() === true) {
+        if(regValidator() === true) {
             console.log("succeeded")
             console.log("password", password)
             passwordText.value = password;  
