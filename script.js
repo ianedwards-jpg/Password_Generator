@@ -1,6 +1,7 @@
 //Define Variables 
 let chars = ''     //Create empty string for add parameters
 let passLength = document.querySelector("#input_password_length")
+let passwordText = document.querySelector("#password");
 const upChars = "ABCDEFGHIJKLMNOPQURSTUVWXYZ"
 const lowChars = "abcdefghijklmnopqrstuvwxyz"
 const numChars = "0123456789"
@@ -10,6 +11,10 @@ const uppCaseInput = document.querySelector("#include_uppercase")
 const lowCaseInput = document.querySelector("#include_lowercase")
 const numCaseInput = document.querySelector("#include_numbers")
 const speCaseInput = document.querySelector("#include_special_chars")
+
+// Assignment Code
+const generateBtn = document.querySelector("#generate");
+const clearBtn = document.querySelector("#clearForm");
 
 // Create Password Function 
 function createPass() {
@@ -26,8 +31,7 @@ function createPass() {
     return result;
 }
 
-// Assignment Code
-var generateBtn = document.querySelector("#generate");
+
 
 // Write password to the #password input
 function writePassword() {            
@@ -57,7 +61,7 @@ const speCase = speCaseInput.checked
 
 //Call writePassword function
     var password = createPass();                                //Define password variable as the result of writePassword function
-    var passwordText = document.querySelector("#password");
+    
     
 // Password validation functions based on user inputs
 
@@ -145,5 +149,18 @@ const speCase = speCaseInput.checked
     
 }
 
+const clearForm = () => {
+    uppCaseInput.checked = false;
+    lowCaseInput.checked = false;
+    numCaseInput.checked = false;
+    speCaseInput.checked = false;
+    passLength.value = 6;
+    passwordText.value = '';  
+
+
+}
+
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+clearBtn.addEventListener("click", clearForm);
+
