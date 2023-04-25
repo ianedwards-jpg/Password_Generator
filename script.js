@@ -26,12 +26,10 @@ function createPass() {
             Math.floor(Math.random() * chars.length)        //Define char string length so loop can use it 
         );
     }
-   console.log("createPass()", result)                                    // Log results to console
+//    console.log("createPass()", result)                                    // Log results to console
 
     return result;
 }
-
-
 
 // Write password to the #password input
 function writePassword() {            
@@ -61,92 +59,53 @@ const speCase = speCaseInput.checked
 
 //Call writePassword function
     var password = createPass();                                //Define password variable as the result of writePassword function
-    
-    
+
 // Password validation functions based on user inputs
 
-    const validateUpper = () => {
-        if (uppCase){
-            let regex = new RegExp("(?=.*?[A-Z])") 
-            if(regex.test(password)){
-                return true
-            }
-            else {
-               // console.log("failUC")
-                return false
-            }
-        }
-    }
-    const validateLower = () => {
+    let regMap = [
+        {exp: uppCase, name: "uppCase", value: "(?=.*?[A-Z])" },
+        {exp: lowCase, name: "lowCase", value: "(?=.*?[a-z])" } , 
+        {exp: numCase, name: "numCase", value: "(?=.*?[0-9])" }  ,
+        {exp: speCase, name: "speCase", value: "(?=.*?[#?!@$%^&*-])" }
+    ]
 
-        if (lowCase) {
-            let regex = new RegExp("(?=.*?[a-z])") 
-            if(regex.test(password)){
-                return true
-            }
-            else {
-                return false
-            }
-        }
-    }
-    const validateNumbers = () => {
-        if (numCase) {
-            let regex = new RegExp("(?=.*?[0-9])") 
-            if(regex.test(password)){
-                return true
-            }
-            else {
-                return false
-            }
-        }
-    }
-    const validateSpecialChars = () => {
-        if (speCase) {
-            let regex = new RegExp("(?=.*?[#?!@$%^&*-])") 
-            if(regex.test(password)){
-                return true
-            }
-            else {
-                return false
-            }
-        }
-    }
+    const regValidator = () => {
+        let results = []
+        let checker = results => results.every(v => v === true);
 
-// Set up logic to accept only passwords users specify
-    const validatePassword = () => {
-        if((validateUpper() === false)) {
-            return false
-        }
-        else if ( (validateLower() === false)) { 
-            return false
-        }
-        else if ( (validateNumbers() === false))  {
-            return false
-        }
-        else if ( (validateSpecialChars() === false))  { 
-            return false
-        }
-        else {
+
+        regMap.forEach(element =>  {
+            if(element.exp === true) {
+
+                let regex = new RegExp(element.value) 
+                
+                if(regex.test(password)){
+                    results.push(true)
+                }
+                else {
+                    results.push(false)
+                }
+            } 
+        });
+
+        if (checker(results) === true) {
             return true
         }
-    }
-    
+        else {
+            return false
+        }
+    }   
 
     const recursor = () => {
-        if(validatePassword() === true) {
-            console.log("succeeded")
-            console.log("password", password)
+        if(regValidator() === true) {
             passwordText.value = password;  
         }
         else {
-            console.log("failed")
            writePassword();
-           console.log()
         }
     }
 
     recursor();
-    
 }
 
 const clearForm = () => {
@@ -156,8 +115,6 @@ const clearForm = () => {
     speCaseInput.checked = false;
     passLength.value = 6;
     passwordText.value = '';  
-
-
 }
 
 // Add event listener to generate button
