@@ -26,12 +26,10 @@ function createPass() {
             Math.floor(Math.random() * chars.length)        //Define char string length so loop can use it 
         );
     }
-   console.log("createPass()", result)                                    // Log results to console
+//    console.log("createPass()", result)                                    // Log results to console
 
     return result;
 }
-
-
 
 // Write password to the #password input
 function writePassword() {            
@@ -61,8 +59,7 @@ const speCase = speCaseInput.checked
 
 //Call writePassword function
     var password = createPass();                                //Define password variable as the result of writePassword function
-    
-    
+
 // Password validation functions based on user inputs
 
     let regMap = [
@@ -80,61 +77,35 @@ const speCase = speCaseInput.checked
         regMap.forEach(element =>  {
             if(element.exp === true) {
 
-                console.log("element", element.name)
-
                 let regex = new RegExp(element.value) 
                 
-                // console.log("regex", regex)
-                    if(regex.test(password)){
-                        console.log("true", element.name)
-                        results.push(true)
-                    }
-                    else {
-                        console.log("false", element.name)
-                        results.push(false)
-                        // console.log(false)
-                    }
+                if(regex.test(password)){
+                    results.push(true)
+                }
+                else {
+                    results.push(false)
+                }
             } 
         });
 
-        console.log("results", results)
-
         if (checker(results) === true) {
-            console.log("checkertrue")
             return true
         }
         else {
-            console.log("checkerfalse")
             return false
         }
-    }
-
-// Set up logic to accept only passwords users specify
-    // const validatePassword = () => {
-    //     if((regValidator() === false)) {
-    //         return false
-    //     }
-    //     else {
-    //         return true
-    //     }
-    // }
-    
+    }   
 
     const recursor = () => {
         if(regValidator() === true) {
-            console.log("succeeded")
-            console.log("password", password)
             passwordText.value = password;  
         }
         else {
-            console.log("failed")
            writePassword();
-           console.log()
         }
     }
 
     recursor();
-    
 }
 
 const clearForm = () => {
@@ -144,8 +115,6 @@ const clearForm = () => {
     speCaseInput.checked = false;
     passLength.value = 6;
     passwordText.value = '';  
-
-
 }
 
 // Add event listener to generate button
